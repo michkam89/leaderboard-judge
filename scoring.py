@@ -2,24 +2,23 @@ from __future__ import annotations
 from judge.models import CheckResult, MUST_HAVE, ScoringConfig
 
 
-def _category_score(results: list[CheckResult]) -> float:
-    return sum(1 for r in results if r.judgement.is_correct) / len(results) * 100 if results else 0.0
-
-
 def compute_scores(
     check_results: list[CheckResult],
     scoring_config: ScoringConfig | None,
 ) -> tuple[float, float, str | None]:
-    must_have: list[CheckResult] = []
-    should_have: list[CheckResult] = []
+    m_total = m_pass = s_total = s_pass = 0
     for r in check_results:
         if r.check.priority == MUST_HAVE:
-            must_have.append(r)
+            m_total += 1
+            if r.judgement.is_correct:
+                m_pass += 1
         else:
-            should_have.append(r)
+            s_total += 1
+            if r.judgement.is_correct:
+                s_pass += 1
 
-    must_have_score = _category_score(must_have)
-    should_have_score = _category_score(should_have)
+    must_have_score = m_pass / m_total * 100 if m_total else 0.0
+    should_have_score = s_pass / s_total * 100 if s_total else 0.0
 
     badge: str | None = None
     if scoring_config:

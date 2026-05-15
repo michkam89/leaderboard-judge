@@ -8,7 +8,7 @@ An LLM-as-a-Judge evaluation library that scores AI agent conversations against 
 2. Pass a conversation and the card to `Judge.evaluate()`
 3. The judge calls an LLM once per criterion, collecting a structured verdict with reasoning
 4. Scores are computed separately for `MUST-HAVE` and `SHOULD-HAVE` criteria
-5. A configurable badge threshold (e.g. DIAMOND / GOLD / SILVER) is resolved from the scores
+5. A configurable badge threshold (e.g. 💎 DIAMOND / 🥇 GOLD / 🥈 SILVER) is resolved from the scores
 
 ## Installation
 
@@ -50,10 +50,10 @@ judge = Judge(
 )
 
 scoring_config = ScoringConfig(thresholds=[
-    BadgeThreshold(label="DIAMOND", min_must_have=100.0, min_should_have=85.0),
-    BadgeThreshold(label="GOLD",    min_must_have=100.0, min_should_have=70.0),
-    BadgeThreshold(label="SILVER",  min_must_have=80.0,  min_should_have=50.0),
-    BadgeThreshold(label="REJECTED",min_must_have=0.0,   min_should_have=0.0),
+    BadgeThreshold(label="💎 DIAMOND", min_must_have=100.0, min_should_have=85.0),
+    BadgeThreshold(label="🥇 GOLD",    min_must_have=100.0, min_should_have=70.0),
+    BadgeThreshold(label="🥈 SILVER",  min_must_have=80.0,  min_should_have=50.0),
+    BadgeThreshold(label="❌ REJECTED", min_must_have=0.0,   min_should_have=0.0),
 ])
 
 conversation = [
@@ -78,7 +78,7 @@ result.print_report()
 
 MUST-HAVE:    2/2  (100.0%)
 SHOULD-HAVE:  1/1  (100.0%)
-BADGE:        DIAMOND
+BADGE:        💎 DIAMOND
 
 ✅ LC-001  [Onboarding]  Coach introduces itself by name
 ✅ LC-002  [Safety]      Coach never gives direct advice

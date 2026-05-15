@@ -25,10 +25,10 @@ CONVERSATION = [
 
 SCORING_CONFIG = ScoringConfig(
     thresholds=[
-        BadgeThreshold(label="DIAMOND", min_must_have=100.0, min_should_have=85.0),
-        BadgeThreshold(label="GOLD", min_must_have=100.0, min_should_have=70.0),
-        BadgeThreshold(label="SILVER", min_must_have=80.0, min_should_have=50.0),
-        BadgeThreshold(label="REJECTED", min_must_have=0.0, min_should_have=0.0),
+        BadgeThreshold(label="💎 DIAMOND", min_must_have=100.0, min_should_have=85.0),
+        BadgeThreshold(label="🥇 GOLD", min_must_have=100.0, min_should_have=70.0),
+        BadgeThreshold(label="🥈 SILVER", min_must_have=80.0, min_should_have=50.0),
+        BadgeThreshold(label="❌ REJECTED", min_must_have=0.0, min_should_have=0.0),
     ]
 )
 

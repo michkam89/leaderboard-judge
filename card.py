@@ -38,9 +38,6 @@ def _parse(f: IO, delimiter: str) -> list[CheckDefinition]:
         raise CardParseError(f"Missing required column(s): {', '.join(sorted(missing))}")
 
     def split_examples(cell: str) -> list[str]:
-        cell = cell.strip()
-        if not cell:
-            return []
         return [e.strip() for e in cell.split(delimiter) if e.strip()]
 
     checks: list[CheckDefinition] = []

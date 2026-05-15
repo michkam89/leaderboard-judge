@@ -44,15 +44,20 @@ class EvaluationResult(BaseModel):
 
     def print_report(self) -> None:
         must_total = must_passed = should_total = should_passed = 0
-        for r in self.check_results:
-            if r.check.priority == MUST_HAVE:
+        lines: list[str] = []
+        for result in self.check_results:
+            if result.check.priority == MUST_HAVE:
                 must_total += 1
-                if r.judgement.is_correct:
+                if result.judgement.is_correct:
                     must_passed += 1
             else:
                 should_total += 1
-                if r.judgement.is_correct:
+                if result.judgement.is_correct:
                     should_passed += 1
+            icon = "✅" if result.judgement.is_correct else "❌"
+            lines.append(f"{icon} {result.check.id}  [{result.check.category}]  {result.check.criterion}")
+            if not result.judgement.is_correct:
+                lines.append(f"   └─ Reasoning: {result.judgement.reasoning}")
 
         print("=== EVALUATION REPORT ===\n")
         print(f"MUST-HAVE:    {must_passed}/{must_total}  ({self.must_have_score:.1f}%)")
@@ -60,9 +65,5 @@ class EvaluationResult(BaseModel):
         if self.badge:
             print(f"BADGE:        {self.badge}")
         print()
-
-        for result in self.check_results:
-            icon = "✅" if result.judgement.is_correct else "❌"
-            print(f"{icon} {result.check.id}  [{result.check.category}]  {result.check.criterion}")
-            if not result.judgement.is_correct:
-                print(f"   └─ Reasoning: {result.judgement.reasoning}")
+        for line in lines:
+            print(line)

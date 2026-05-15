@@ -1,9 +1,11 @@
 from __future__ import annotations
-from typing import Any, Type
+from typing import TypeVar
 
 import instructor
 from openai import OpenAI
 from pydantic import BaseModel
+
+_T = TypeVar("_T", bound=BaseModel)
 
 
 class JudgeClient:
@@ -17,9 +19,9 @@ class JudgeClient:
     def judge(
         self,
         messages: list[dict],
-        response_model: Type[BaseModel],
+        response_model: type[_T],
         temperature: float = 0.0,
-    ) -> Any:
+    ) -> _T:
         return self._client.chat.completions.create(
             model=self._model,
             messages=messages,
